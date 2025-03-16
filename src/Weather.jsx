@@ -15,7 +15,7 @@ const Weather=()=>{
         }
         try {
             setError(null)
-         const data=  await fetch(`http://api.weatherapi.com/v1/current.json?key=${api}&q=${city}&aqi=no`)
+         const data=  await fetch(`https://api.weatherapi.com/v1/current.json?key=${api}&q=${city}&aqi=no`)
            const response= await data.json()
             console.log(response)
             setDeta(response);
