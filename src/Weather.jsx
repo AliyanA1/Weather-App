@@ -16,11 +16,16 @@ const Weather=()=>{
         try {
             setError(null)
          const data=  await fetch(`https://api.weatherapi.com/v1/current.json?key=${api}&q=${city}&aqi=no`)
-           const response= await data.json()
+         if (!data.ok) {
+            throw new Error("City not found. Please enter a valid city.");
+        }
+         const response= await data.json()
+          if(!response) setError('invaild name')
             console.log(response)
             setDeta(response);
         } catch (error) {
-            setError(error)
+            setError(error || 'something went wrong')
+            setDeta(null)
         }
     }
 
@@ -33,53 +38,62 @@ const Weather=()=>{
         return "bg-gradient-to-b from-gray-500 to-gray-800"; // Cold weather
     };
     
-    return (
-        <div className={`h-screen font-mono ${getBackground()} flex items-center justify-center transition-all duration-500`}>
-            <div className="bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-lg text-white w-96 text-center">
-                <h1 className="text-2xl font-mono mb-4">Weather App</h1>
-                
-                <div className="flex flex-col space-y-4">
-                    <input
-                        className="w-full h-10 p-3 text-white bg-transparent border-2 border-white rounded-lg placeholder-white focus:outline-none"
-                        type="text"
-                        placeholder="Enter city..."
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                    />
-                    <button 
-                        onClick={weatherApi} 
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
-                    >
-                        Get Weather
-                    </button>
-                </div>
+   return(
+    <div className={`h-screen font-mono ${getBackground()} flex items-center justify-center px-4 transition-all duration-500`}>
+    <div className="bg-white/10 backdrop-blur-lg p-6 sm:p-8 rounded-2xl shadow-xl text-white w-full max-w-sm text-center">
+        <h1 className="text-3xl font-bold tracking-wide mb-4">🌤️ Weather App</h1>
 
-                {error && <p className="text-red-400 mt-4">{error}</p>}
-
-                {deta && (
-                    <div className="mt-6">
-                        <h2 className="text-xl font-semibold">{deta.location.name}, {deta.location.region}, {deta.location.country}</h2>
-                        <p className="text-2xl font-bold ">{deta.current.temp_c}°C </p>
-                        <p className="text-lg "> (Feels like {deta.current.feelslike_c}°C)</p>
-                        <p className="text-md">Wind Speed: {deta.current.wind_kph} Kph</p>
-
-                        {/* Weather condition with dynamic icon */}
-                        <div className="mt-4 flex flex-col items-center">
-                            <img 
-                                src={deta.current.condition.icon} 
-                                alt={deta.current.condition.text} 
-                                className="w-20 h-20"
-                            />
-                            <p className="text-lg font-semibold">{deta.current.condition.text}</p>
-                        </div>
-                    </div>
-                )}
-                <p className="text-center mt-4 text-gray-200">Developer: Aliyan</p>
-            </div>
-            
+        {/* Input & Button */}
+        <div className="flex flex-col space-y-4">
+            <input
+                className="w-full h-12 px-4 text-white bg-transparent border border-white rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                type="text"
+                placeholder="Enter city..."
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+            />
+            <button 
+                onClick={weatherApi} 
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold tracking-wide px-5 py-2.5 rounded-lg transition transform hover:scale-105"
+            >
+                Get Weather
+            </button>
         </div>
-    )
+
+        {/* Error Message */}
+        {error && <p className="text-red-400 mt-4 text-sm">{String(error)}</p>}
+
+        {/* Weather Details */}
+        {deta && !error && (
+            <div className="mt-6">
+                <h2 className="text-xl font-semibold">{deta.location.name}, {deta.location.region}, {deta.location.country}</h2>
+                <p className="text-5xl font-extrabold mt-2">{Math.floor(deta.current.temp_c)}°C</p>
+                <p className="text-lg text-gray-300">(Feels like {deta.current.feelslike_c}°C)</p>
+                <p className="text-md text-gray-300">💨 Wind Speed: {deta.current.wind_kph} Kph</p>
+
+                {/* Weather Condition with Icon */}
+                <div className="mt-4 flex flex-col items-center">
+                    <img 
+                        src={deta.current.condition.icon} 
+                        alt={deta.current.condition.text} 
+                        className="w-24 h-24 drop-shadow-lg"
+                    />
+                    <p className="text-lg font-semibold">{deta.current.condition.text}</p>
+                </div>
+            </div>
+        )}
+
+        {/* Developer Credit */}
+        <p className="text-center mt-6 text-gray-300 text-sm">🚀 Developer: <span className="font-bold text-gray-100">Aliyan</span></p>
+    </div>
+    </div>
+
+)
        
 }
 
 export default Weather
+
+
+
+ 
