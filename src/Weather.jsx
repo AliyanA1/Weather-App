@@ -29,6 +29,7 @@ const Weather=()=>{
         }
     }
 
+    //background changer according to weather
     const getBackground = () => {
         if (!deta) return "bg-gradient-to-b from-blue-700 to-blue-900"; // Default background
 
@@ -41,12 +42,12 @@ const Weather=()=>{
    return(
     <div className={`h-screen font-mono ${getBackground()} flex items-center justify-center px-4 transition-all duration-500`}>
     <div className="bg-white/10 backdrop-blur-lg p-6 sm:p-8 rounded-2xl shadow-xl text-white w-full max-w-sm text-center">
-        <h1 className="text-3xl font-bold tracking-wide mb-4">🌤️ Weather App</h1>
+        <h1 className="text-3xl font-bold font-mono tracking-wide mb-4">🌤️ Weather App</h1>
 
         {/* Input & Button */}
         <div className="flex flex-col space-y-4">
             <input
-                className="w-full h-12 px-4 text-white bg-transparent border border-white rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full h-12 px-4 font-mono text-white bg-transparent border border-white rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 type="text"
                 placeholder="Enter city..."
                 value={city}
@@ -84,7 +85,7 @@ const Weather=()=>{
         )}
 
         {/* Developer Credit */}
-        <p className="text-center mt-6 text-gray-300 text-sm">🚀 Developer: <span className="font-bold text-gray-100">Aliyan</span></p>
+        <p className="text-center mt-6 text-gray-300 text-sm">🚀 Developer: <span className="font-bold font-mono text-gray-100">Aliyan</span></p>
     </div>
     </div>
 
