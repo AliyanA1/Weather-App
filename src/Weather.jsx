@@ -17,10 +17,10 @@ const Weather=()=>{
             setError(null)
          const data=  await fetch(`https://api.weatherapi.com/v1/current.json?key=${api}&q=${city}&aqi=no`)
          if (!data.ok) {
-            throw new Error("City not found. Please enter a valid city.");
+            throw new Error("Please enter a valid city.");
         }
          const response= await data.json()
-          if(!response) setError('invaild name')
+          if(!response) setError('Error in fecthing data')
             console.log(response)
             setDeta(response);
         } catch (error) {
