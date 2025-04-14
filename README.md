@@ -6,10 +6,6 @@ A sleek and minimal **Weather App** that fetches real-time weather data based on
 
 ---
 
-## 📸 Preview
-![Weather App Screenshot](Screenshot from 2025-03-16 13-19-00.png).
-
----
 
 ## ✨ Features  
 ✅ **Real-Time Weather Data** – Fetches data from [WeatherAPI](https://www.weatherapi.com/)  
